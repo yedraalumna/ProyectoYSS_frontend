@@ -1,7 +1,33 @@
 //Página de Login usando mi tema pastel (basado en Doramas)
-import { Container, Typography, Button, Stack } from "@mui/material";
+import { Container, Typography, Button, Stack, TextField } from "@mui/material";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+  //Estados locales para almacenar usuario y contraseña ingresados
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+
+  //Función que se ejecuta al pulsar "Entrar"
+  const handleLogin = () => {
+  if (user === 'admin' && password === '1234') {
+    dispatch(authActions.login({
+      name: user,
+      rol: 'administrador'
+    }));
+
+    alert('Login correcto');
+    navigate('/home');
+  } else {
+    alert('Usuario y/o contraseña incorrectos');
+  }
+};
+
   return (
     //Container centra el contenido y da margen superior
     <Container maxWidth="sm" sx={{ mt: 6 }}>
@@ -32,14 +58,32 @@ export default function Login() {
           *Diseño suave y minimalista*
         </Typography>
 
+        {/* Inputs usuario y contraseña separados para no entorpecer con el resto de botones... */}
+        <Stack spacing={2} sx={{ width: '100%' }}>
+          <TextField
+            label="Usuario"
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+            fullWidth
+          />
+          <TextField
+            label="Contraseña"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            fullWidth
+          />
+        </Stack>
+
         {/* Botones usando MI paleta personalizada */}
         <Stack direction="row" spacing={2}>
-          <Button variant="contained" color="primary">Entrar</Button>
+          {/* Aquí conectamos el botón con handleLogin */}
+          <Button variant="contained" color="primary" onClick={handleLogin}>Entrar</Button>
           <Button variant="outlined" color="secondary">Registrarse</Button>
           <Button variant="text" color="primary">Cancelar</Button>
           <Button variant="contained" color="error">Error</Button>
           <Button variant="contained" color="success">Success</Button>
-          <Button variant="contained" color="warning">Alert</Button>  {/* Se llama Warning porque en MUI no hay alert"*/}
+          <Button variant="contained" color="warning">Alert</Button>  {/* Se llama Warning porque en MUI no hay alert */}
         </Stack>
 
       </Stack>
