@@ -13,13 +13,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    {/* Usamos el tema para toda la app */}
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* Resetea estilos del navegador */}
+      <CssBaseline />
       <Provider store={store}>
       <App />
       </Provider>
     </ThemeProvider>
-  </React.StrictMode>
 );

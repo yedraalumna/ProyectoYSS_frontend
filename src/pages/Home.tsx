@@ -6,6 +6,9 @@ import { authActions } from "../store/authSlice";
 //Importamos el hook useNavigate de react-router-dom para poder navegar entre páginas
 import { useNavigate } from "react-router-dom";
 
+//Importamos el Dashboard
+import Dashboard from '../components/Dashboard';
+
 
 export default function Home() {
   //Usamos useSelector para acceder al estado global
@@ -50,6 +53,8 @@ export default function Home() {
         >
           Salir
         </Button>
+
+        <Dashboard/>
 
       </Stack>
     </Container>
